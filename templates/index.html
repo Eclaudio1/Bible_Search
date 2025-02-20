@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Bible Verses">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Versículos Bíblicos</title>
@@ -25,5 +29,14 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/static/service-worker.js')
+            .then(() => console.log('Service Worker Registered!'))
+            .catch(error => console.log('Service Worker registration failed:', error));
+    }
+    </script>
+
 </body>
 </html>
