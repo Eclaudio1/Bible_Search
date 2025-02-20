@@ -1,23 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bible Verse Search</title>
+    <title>Buscar Versículos Bíblicos</title>
 </head>
 <body>
-    <h1>Search for Bible Verses by Topic</h1>
-    <form method="post">
-        <label for="topic">Enter a topic (e.g., faith, love, strength):</label>
-        <input type="text" id="topic" name="topic">
-        <button type="submit">Search</button>
+    <h1>Buscar Versículos Bíblicos</h1>
+    <form action="/buscar" method="post">
+        <label for="categoria">Selecciona una categoría:</label>
+        <select name="categoria" id="categoria" required>
+            {% for categoria in categorias %}
+                <option value="{{ categoria }}" {% if categoria == categoria_seleccionada %}selected{% endif %}>{{ categoria }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Buscar</button>
     </form>
 
-    <h2>Results:</h2>
-    <ul>
-        {% for verse in verses %}
-            <li>{{ verse }}</li>
-        {% endfor %}
-    </ul>
+    {% if resultados %}
+        <h2>Versículos sobre {{ categoria }}</h2>
+        <ul>
+            {% for versiculo in resultados %}
+                <li><strong>{{ versiculo[0] }}:</strong> {{ versiculo[1] }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
